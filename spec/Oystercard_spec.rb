@@ -19,8 +19,22 @@ describe OysterCard do
        subject.top_up(89) 
        expect { subject.top_up(1) }.to raise_error('Cannot exceed maximum amount £90')
     end
+    
+    describe 'Test the deduct method exists' do
+      it { is_expected.to respond_to(:deduct) }
+    end
+    
+    it 'Deducts £2 from the balance when deduct is called' do
+      subject.top_up(4)
+      expect { subject.deduct(2) }.to change { subject.balance }.from(4).to(2)
+    end    
 end
 
-# In order to protect my money from theft or loss
-# As a customer
-# I want a maximum limit (of £90) on my card
+
+
+
+
+
+#In order to pay for my journey
+#As a customer
+#I need my fare deducted from my card

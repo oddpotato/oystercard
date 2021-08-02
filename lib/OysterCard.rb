@@ -9,6 +9,11 @@ class OysterCard
    
     def top_up(credit)
       raise 'Cannot exceed maximum amount £90' if balance + credit >= MAX_BALANCE
-      @balance = balance + credit
+      @balance += credit
     end
+    
+    def deduct(amount)
+      @balance -= amount
+    end  
+    
 end
