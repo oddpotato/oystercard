@@ -28,13 +28,8 @@ describe OysterCard do
       subject.top_up(4)
       expect { subject.deduct(2) }.to change { subject.balance }.from(4).to(2)
     end    
+    
+    
+
 end
 
-
-
-
-
-
-#In order to pay for my journey
-#As a customer
-#I need my fare deducted from my card
