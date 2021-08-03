@@ -27,8 +27,17 @@ describe OysterCard do
     it 'Deducts £2 from the balance when deduct is called' do
       subject.top_up(4)
       expect { subject.deduct(2) }.to change { subject.balance }.from(4).to(2)
-    end    
+    end
+
+    it 'shows that the user is on a journey after they touch in' do
+      expect { subject.touch_in }.to change { subject.in_journey }.from(false).to(true)
+    end
     
+    it 'shows that the user is not on a journey after they touch out' do
+      expect { subject.touch_out }.to change { subject.in_journey }.from(true).to(false)
+    end
+
+    it { is_expected.to respond_to(:in_journey?) }
     
 
 end
