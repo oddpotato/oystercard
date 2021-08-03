@@ -19,26 +19,31 @@ describe OysterCard do
        subject.top_up(89) 
        expect { subject.top_up(1) }.to raise_error('Cannot exceed maximum amount £90')
     end
-    
-    describe 'Test the deduct method exists' do
-      it { is_expected.to respond_to(:deduct) }
-    end
-    
-    it 'Deducts £2 from the balance when deduct is called' do
-      subject.top_up(4)
-      expect { subject.deduct(2) }.to change { subject.balance }.from(4).to(2)
-    end
-
+        
     it 'shows that the user is on a journey after they touch in' do
-      expect { subject.touch_in }.to change { subject.in_journey }.from(false).to(true)
+      subject.balance = 6
+      expect { subject.touch_in }.to change { subject.in_journey? }.from(false).to(true)
     end
     
     it 'shows that the user is not on a journey after they touch out' do
-      expect { subject.touch_out }.to change { subject.in_journey }.from(true).to(false)
+      subject.balance = 6
+      subject.touch_in
+      expect { subject.touch_out }.to change { subject.in_journey? }.from(true).to(false)
     end
 
     it { is_expected.to respond_to(:in_journey?) }
     
+    it 'Raises an error if you try to tap in with insufficient funds' do 
+      expect { subject.touch_in }.to raise_error('Insufficient funds')
+    end
 
+    it 'the minimum fare should be $1' do
+      expect(OysterCard::MIN_BALANCE).to eq (1)
+    end
+
+    it "should charge the user's card on touch-out" do
+      subject.balance = 6
+      expect { subject.touch_out }.to change { subject.balance }.by(-1)
+    end
 end
 
