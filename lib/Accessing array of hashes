@@ -1,0 +1,31 @@
+# I want to extract every unique value from the key entry_station
+# I want to turn those unique values into keys
+
+#-----------------
+
+# I want to map the exit stations from my original ///hashes within an array// onto the new keys - AS ARRAY ITEMS
+
+# Puts the key and values in the array stored therein
+
+#--------------
+
+# Make a new hash
+# Loop through the existing array of hashes
+# Use an if loop to identify IF the key already exists. If the key exists then append an exit station 
+# assuming there are any others. 
+# ELSE if the key doesn't exist, create it and assign the exist station as it's value
+# TAKE NOTE OF THE SQUARE BRACKETS BECAUSE THAT'S HOW YOU ASSIGN THE INITIAL
+# EXIST STATION AS AN ARRAY
+
+# ----
+# 
+# new_hash3 = {}
+# oyster.journeys.each do |stations| 
+#     if new_hash3.include? stations[:entry_station]
+#         new_hash3[stations[:entry_station]].append stations[:exit_station]
+#     else
+#         new_hash3[stations[:entry_station]] = [stations[:exit_station]]
+#     end
+# end
+# 
+#     

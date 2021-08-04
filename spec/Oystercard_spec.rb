@@ -27,63 +27,60 @@ describe OysterCard do
       expect(OysterCard::MIN_BALANCE).to eq (1)
     end
 
+    context 'it is checking to see if various methods exist' do
+
     it { is_expected.to respond_to(:in_journey?) }
     
     it { is_expected.to respond_to(:journeys) }
 
     it { is_expected.to respond_to(:current_journey) }
     
+    end
+
     # it 'Raises an error if you try to tap in with insufficient funds' do 
     #   expect { subject.touch_in }.to raise_error('Insufficient funds')
     # end
-
-
-
+  
     context 'storing an entry station and having the correct balance' do
        before(:each) do
          subject.top_up(6)
+         subject.touch_in(station)
        end
 
       let(:station){ double :station }
 
       it "should charge the user's card on touch-out" do
-        subject.touch_in(station)
         expect { subject.touch_out(station) }.to change { subject.balance }.by(-1)
       end  
 
-      it 'shows that the user is on a journey after they touch in' do
-        expect { subject.touch_in(station)}.to change { subject.in_journey? }.from(false).to(true)
+      it "should show that the user is in a journey" do
+        expect(subject.in_journey?).to eq(true)
       end
-      
+
       it 'shows that the user is not on a journey after they touch out' do
-        subject.touch_in(station)
-        expect { subject.touch_out(station) }.to change { subject.in_journey? }.from(true).to(false)
+        subject.touch_out(station)
+        expect(subject.in_journey?).to eq(false)
       end
 
       it "stores the entry station when we touch in" do
-        subject.touch_in(station)
         expect(subject.entry_station).to eq(station)
       end
 
       it "stores the entry station in the hash current_journey" do
-        subject.touch_in(station)
         expect(subject.current_journey).to include(entry_station: station)
       end
 
       it 'stores the exit station when we touch out' do
-        subject.touch_in(station)
         subject.touch_out(station)
         expect(subject.exit_station).to eq(station)
       end
 
       it "stores the entry station in the hash current_journey" do
-        subject.touch_in(station)
         subject.touch_out(station)
         expect(subject.current_journey).to include(exit_station: station)
       end
 
       it 'appends a completed journey to the array journey' do
-        subject.touch_in(station)
         expect {subject.touch_out(station)}.to change { subject.journeys.length }.by(+1)
       end
 
