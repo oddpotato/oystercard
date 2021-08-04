@@ -1,9 +1,9 @@
 require 'OysterCard'
 
-describe OysterCard do
+# TO DO - Add context block for no topup
+# Add context block for topup
 
-    let(:peckham) { double :station }
-    let(:bermondsey) { double :station }
+describe OysterCard do
 
     it 'should show balance of zero' do
       expect(subject.balance).to eq(0)
