@@ -23,12 +23,19 @@ class OysterCard
 
     def touch_in(station)
       raise 'Insufficient funds' if balance < MIN_BALANCE
+      # if current_journey == nil
+          # normal touch in script
+           # current_journey = Journey.new
+      # else penalty script 
       @entry_station = station
       @current_journey = Hash.new
       @current_journey[:entry_station] = station
     end
 
     def touch_out(station)
+      # if current_journey == nil
+        #penalty script
+      # else normal touch out script
       deduct(FARE)
       @entry_station = nil
       @exit_station = station
